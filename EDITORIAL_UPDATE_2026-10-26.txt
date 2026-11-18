@@ -1,0 +1,18 @@
+O/K — Editorial refinement · 26 October 2026
+
+WHAT CHANGED
+- Refined the design stories and introductory sentences for all 29 existing project pages while preserving the original design ideas, names, years, materials, stage, manufacturer, exhibition entries and website links.
+- Added a concise story to Untitled 1 (2013): thin steel construction and visually lightweight contemporary form.
+- Curated the homepage random feature to five visually strong, actual furniture images: Sweet Tooth, Grawliz, Blossom Table, Hammer and Tribal Chair.
+- Curated selected galleries with repeated near-identical views; all existing image files remain in /assets/img/projects, so no photography was deleted. Some galleries with unique content remain complete.
+
+NOT CHANGED
+- No new exhibition-homepage feature (held pending your decision).
+- No launch email/contact changes (held until launch).
+- No dimensions or photographer credits added.
+- No new design materials, production claims or awards invented.
+
+HOW TO PREVIEW
+Open index.html; refresh to see one of five featured images. Open works/untitled-1.html to see the new design story, and works/tribal-chair.html to see the edited story and selected gallery. Check Works and About too.
+
+All site pages remain static HTML, suitable for GitHub Pages.

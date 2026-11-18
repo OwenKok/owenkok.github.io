@@ -1,0 +1,13 @@
+O/K — Site update, 25 October 2026
+
+Included and preserved:
+- All existing 29 project stories, pages, 2023 Torii exhibition entry, exhibition cross-links, external website links, About portrait, image protection, and Mark Owen Interior Associates contact referral.
+- Project materials, producer/manufacturer, production stage, and collaboration from the completed DOCX where supplied.
+- Tribal Chair: one additional user-supplied photograph added to assets/img/projects/tribal-chair/12.jpg and the end of the project gallery. Existing photos and cover remain unchanged.
+- Homepage: one of six actual works is selected randomly on each page load (no animated transitions; unchanged white layout). It defaults to Sweet Tooth if scripts cannot run.
+
+Notes:
+- Dimensions and photography credits were left unfilled because they were not supplied.
+- 29 project entries remain as separate works. The previously counted 43 source directories include subfolders and variants, rather than 43 confirmed separate works.
+- The supplied DOCX contains no explicit new dated exhibitions or new URLs, so the Exhibitions page and project links are retained unchanged.
+- Use this updated folder, rather than an older version, as your future source for GitHub Pages.
