@@ -1,7 +1,13 @@
 
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-function projectLink(p){return `works/${encodeURIComponent(p.slug)}.html`}
-function card(p){return `<a class="work-card reveal" href="${projectLink(p)}"><div class="image-frame"><img src="${p.cover}" alt="${p.title} by Owen Kok" loading="lazy" decoding="async"></div><div class="card-meta"><span>${p.title}</span><span class="year">${p.year}</span></div></a>`}
+const siteRoot = new URL('../../', document.currentScript.src);
+if (/^https?:$/.test(location.protocol) && location.pathname.endsWith('/index.html')) {
+  location.replace('./' + location.search + location.hash);
+}
+function projectLink(p) {
+  return new URL(`works/${encodeURIComponent(p.slug)}/`, siteRoot).href;
+}
+function card(p){return `<a class="work-card reveal" href="${projectLink(p)}"><div class="image-frame"><img src="${new URL(p.cover, siteRoot).href}" alt="${p.title} by Owen Kok" loading="lazy" decoding="async"></div><div class="card-meta"><span>${p.title}</span><span class="year">${p.year}</span></div></a>`}
 function setupNav(){
  const btn=$('.mobile-menu'),nav=$('.nav');if(!btn||!nav)return;
  function close(){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='☰';btn.setAttribute('aria-label','Open navigation')}
@@ -12,7 +18,12 @@ function setupNav(){
 function reveal(){if(!('IntersectionObserver' in window)){ $$('.reveal').forEach(e=>e.classList.add('in'));return;}const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:.08});$$('.reveal').forEach(e=>obs.observe(e));}
 function renderSelected(){const el=$('#selectedWorks'); if(!el)return; const ids=['grawliz','sweet-tooth-collection','blossom-table','torii-stool','hammer','elastico']; el.innerHTML=ids.map(id=>window.PROJECTS.find(p=>p.slug===id)).filter(Boolean).map(card).join('');}
 function renderWorks(){const root=$('#worksRoot'); if(!root)return; const groups={}; window.PROJECTS.forEach(p=>{const key=p.year>=2012?String(p.year):'Earlier';(groups[key]??=[]).push(p)}); const years=Object.keys(groups).filter(k=>k!=='Earlier').sort((a,b)=>b-a); if(groups.Earlier)years.push('Earlier'); const nav=$('#yearLinks'); if(nav) nav.innerHTML=years.map(y=>`<a href="#y-${y.toLowerCase()}">${y==='Earlier'?'Earlier Works':y}</a>`).join(''); root.innerHTML=years.map(y=>`<section class="year-section" id="y-${y.toLowerCase()}"><div class="year-heading">${y==='Earlier'?'Earlier Works · 2005–2009':y}</div><div class="works-grid">${groups[y].map(card).join('')}</div></section>`).join('');}
-function renderProject(){const root=$('#projectRoot'); if(!root)return; const id=new URLSearchParams(location.search).get('id'); const p=window.PROJECTS.find(x=>x.slug===id)||window.PROJECTS[0]; location.replace(projectLink(p));return; document.title=`${p.title} — O/K`; const copy=p.description.length?p.description.map(t=>`<p>${t}</p>`).join(''):`<p class="empty-desc">Project notes to be added.</p>`; const links=(p.links||[]).map(link=>`<li><a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label} ↗</a></li>`).join(''); const linkSection=links?`<section class="project-external"><div class="mini-label">PROJECT LINKS</div><ul class="external-link-list">${links}</ul></section>`:''; const extra=p.images.slice(1).map((src,i)=>`<div class="gallery-item ${i%5===4?'wide':''} reveal"><img src="${src}" alt="${p.title} view ${i+2}" loading="lazy"></div>`).join(''); root.innerHTML=`<div class="project-hero"><aside class="project-info"><div class="project-year">${p.year}</div><h1>${p.title}</h1><div class="project-copy">${copy}</div>${linkSection}</aside><div class="project-main"><img src="${p.cover}" alt="${p.title}"></div></div>${extra?`<div class="gallery">${extra}</div>`:''}<div class="back-row"><a href="works.html">← Back to Works</a><span>${String(p.year)}</span></div>`;}
+function renderProject() {
+  if (!$('#projectRoot')) return;
+  const id = new URLSearchParams(location.search).get('id');
+  const project = window.PROJECTS.find(entry => entry.slug === id) || window.PROJECTS[0];
+  location.replace(projectLink(project) + location.hash);
+}
 // Discourage casual copying of portfolio photos. This cannot prevent screenshots or browser retrieval.
 function discourageImageSaving(){
  const photos='.hero-visual img, .image-frame img, .project-main img, .gallery-item img, .about-visual img';
